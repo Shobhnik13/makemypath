@@ -1,9 +1,14 @@
+'use client'
 import Link from "next/link"
 import Icons from "../global/icons"
 import { Button, buttonVariants } from "../ui/button"
+import { currentUser } from "@clerk/nextjs/server"
+import { ArrowRight } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { UserButton, useUser } from "@clerk/nextjs"
 
 const Navbar = () => {
-    const user = false
+    const {user} = useUser()
   return (
     <header className="px-4 h-14 sticky top-0 inset-x-0 w-full bg-background/40 backdrop-blur-lg border-b border-border z-50">
         <div className="flex items-center justify-between h-full mx-auto md:max-w-screen-xl lg:max-w-screen-2xl">
@@ -25,7 +30,11 @@ const Navbar = () => {
             {/* 3rd div for user  */}
             <div className="flex items-center gap-4">
               {
-                user?("user is here"):(
+                user?(
+                    <>
+                        <UserButton />
+                    </>
+                ):(
                     <>
                     <Link href={'/sign-in'} className={buttonVariants({ size: "sm", variant: "default" })}>
                     Login

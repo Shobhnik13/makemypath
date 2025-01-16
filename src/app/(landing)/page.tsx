@@ -1,3 +1,4 @@
+'use client'
 import { Container, Wrapper } from "@/components";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Button } from "@/components/ui/button";
@@ -6,12 +7,16 @@ import Marquee from "@/components/ui/marquee";
 import SectionBadge from "@/components/ui/section-badge";
 import { features, perks, reviews } from "@/constants";
 import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
 import { ArrowRight, ChevronRight, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const HomePage = () => {
+        const {user} = useUser()
+        // console.log(user);
+        
         const firstline = reviews.slice(0,reviews.length/2)
         const secondline = reviews.slice(reviews.length/2)
     return (
@@ -57,15 +62,24 @@ const HomePage = () => {
 
                             {/* below code is for the badge witj get started button and a tagline */}
 
-                            <div className="hidden md:flex relative items-center justify-center mt-8 md:mt-12 w-full">
-                                <Link href="#" className="flex items-center justify-center w-max rounded-full border-t border-foreground/30 bg-white/20 backdrop-blur-lg px-2 py-1 md:py-2 gap-2 md:gap-8 shadow-3xl shadow-background/40 cursor-pointer select-none">
+                            <div className="hidden lg:flex relative items-center justify-center mt-8 md:mt-12 w-full">
+                                <Link href={user?'/dashboard':'/sign-in'} className="flex items-center justify-center w-max rounded-full border-t border-foreground/30 bg-white/20 backdrop-blur-lg px-2 py-1 md:py-2 gap-2 md:gap-8 shadow-3xl shadow-background/40 cursor-pointer select-none">
                                     <p className="text-foreground text-sm text-center md:text-base font-medium pl-4 pr-4 lg:pr-0">
                                         ✨ Start building your dream career now!
                                     </p>
-                                    <Button size="sm" className="rounded-full hidden lg:flex border border-foreground/20">
+                                    <Button size="sm" className="hidden rounded-full  lg:flex border border-foreground/20">
                                         Get Started
                                         <ArrowRight className="w-4 h-4 ml-1" />
                                     </Button>
+                                </Link>
+                            </div>
+                            {/* only for mobile and tabs sm and md */}
+                            <div className="mt-5 ">
+                                <Link href={user?'/dashboard':'/sign-in'}>
+                                <Button size="sm" className="rounded-full px-16 lg:hidden border border-foreground/20">
+                                        Get Started
+                                        <ArrowRight className="w-4 h-4 ml-1" />
+                                </Button>
                                 </Link>
                             </div>
                             {/* above code is for badge with starte button and a tagline  */}
@@ -253,7 +267,7 @@ const HomePage = () => {
                                     Build your dream career with our AI tailored resources, certifications, roadmaps, and job roles
                                 </p>
                                 <Button variant="white" className="mt-6" asChild>
-                                    <Link href={'/sign-in'}>
+                                    <Link href={user?'/dashboard':'/sign-in'}>
                                         Get started for free 
                                         <ArrowRight className="w-4 h-4 ml-2"/>
                                     </Link>
