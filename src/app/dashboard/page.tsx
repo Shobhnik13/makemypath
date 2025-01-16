@@ -6,7 +6,7 @@ import React from 'react'
 
 const page = () => {
     const fetchData = async()=>{
-        const data = await axios.post('/api/Generate',{topic:'deep learning'})
+        const data = await axios.post('https://makemypath-backend.onrender.com/api/career-guidance',{topic:'deep learning'})
         // const jsonData = JSON.parse(data.data)
         console.log(data.data)
     }
