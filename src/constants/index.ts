@@ -3,86 +3,54 @@ import { Icons } from "@/components";
 export const perks = [
     {
         icon: Icons.auth,
-        title: "Sign Up",
-        info: "Create your free account to get started with Astra.",
+        title: "Sign In",
+        info: "Sign  with your google account to get started with MakeMyPath.",
     },
     {
         icon: Icons.customize,
-        title: "Customize",
-        info: "Choose a template and customize it to fit your needs.",
+        title: "Choose",
+        info: "Write about a topic and get desired roadmap and other essentials.",
     },
     {
         icon: Icons.launch,
-        title: "Launch",
-        info: "Publish your website and share it with the world.",
+        title: "Learn",
+        info: "Start learning and share your knowledge with the world.",
     },
 ];
 
 export const features = [
     {
-        icon: Icons.bolt,
-        title: "Fast Setup",
-        info: "Get your website up and running in minutes with our intuitive AI-powered builder.",
+        icon: Icons.brain,
+        title: "AI-Powered Roadmaps",
+        info: "Get personalized domain-specific roadmaps, curated by AI, to help you achieve your career goals.",
     },
     {
-        icon: Icons.palette,
-        title: "Customizable Templates",
-        info: "Choose from a variety of stunning templates and customize them to suit your brand.",
+        icon: Icons.book,
+        title: "Learning Resources",
+        info: "Access a comprehensive library of resources, including articles, videos, and tutorials to upskill efficiently.",
     },
     {
-        icon: Icons.seo,
-        title: "SEO Optimized",
-        info: "Built-in SEO features ensure your website ranks well on search engines.",
+        icon: Icons.certificate,
+        title: "Certifications Guidance",
+        info: "Find the most relevant certifications required for your domain and boost your professional credibility.",
     },
     {
-        icon: Icons.monitor,
-        title: "Responsive Design",
-        info: "Your website will look great on any device, from desktops to mobile phones.",
+        icon: Icons.briefcase,
+        title: "Job & Internship Finder",
+        info: "Discover job opportunities and internships matching your skills and roadmap progress, all in one place.",
     },
     {
-        icon: Icons.shop,
-        title: "E-Commerce Ready",
-        info: "Start selling online with our e-commerce features and integrations.",
+        icon: Icons.school,
+        title: "Courses & Training",
+        info: "Explore curated courses and training programs to learn in-demand skills and stay ahead of the curve.",
     },
     {
-        icon: Icons.server,
-        title: "Secure Hosting",
-        info: "Enjoy peace of mind with secure and reliable hosting for your website.",
-    },
+        icon: Icons.timeline,
+        title: "Skill-Level Roadmaps",
+        info: "Follow tailored roadmaps based on your skill level — Beginner, Intermediate, or Advanced — with clear milestones and required skills for each stage.",
+    },    
 ];
 
-export const pricingCards = [
-    {
-        title: "Starter",
-        description: "Perfect for trying out plura",
-        price: "Free",
-        duration: "",
-        highlight: "Key features",
-        buttonText: "Start for free",
-        features: ["Limited projects", "1 Team member", "Basic features"],
-        priceId: "",
-    },
-    {
-        title: "Unlimited Saas",
-        description: "The ultimate agency kit",
-        price: "$199",
-        duration: "month",
-        highlight: "Key features",
-        buttonText: "Upgrade to Pro",
-        features: ["Unlimited projects", "5 Team members", "Advanced design tools", "Customizable domain"],
-        priceId: "price_1OYxkqFj9oKEERu1KfJGWxgN",
-    },
-    {
-        title: "Enterprise",
-        description: "For serious agency owners",
-        price: "$399",
-        duration: "month",
-        highlight: "Everything in Starter, plus",
-        buttonText: "Upgrade to Enterprise",
-        features: ["Unlimited projects", "Unlimited Team members", "Custom branding", "Priority support (24/7)"],
-        priceId: "price_1OYxkqFj9oKEERu1NbKUxXxN",
-    },
-];
 
 export const bentoCards = [
     {
@@ -113,33 +81,33 @@ export const bentoCards = [
 
 export const reviews = [
     {
-        name: "Jack",
-        username: "@jack",
+        name: "Arrpit",
+        username: "@arrpit",
         body: "I've never seen anything like this before. It's amazing. I love it.",
     },
     {
-        name: "Jill",
+        name: "Vishal",
         username: "@jill",
-        body: "I don't know what to say. I'm speechless. This is amazing.",
+        body: "It creates well designed roadmaps for a particular field, its fantastic!.",
     },
     {
-        name: "John",
-        username: "@john",
+        name: "Calm",
+        username: "@theycallmecalm",
         body: "I'm at a loss for words. This is amazing. I love it.",
     },
     {
-        name: "Jane",
-        username: "@jane",
+        name: "encore",
+        username: "@encoreabj",
         body: "I'm at a loss for words. This is amazing. I love it.",
     },
     {
-        name: "Jenny",
-        username: "@jenny",
-        body: "I'm at a loss for words. This is amazing. I love it.",
+        name: "krsna",
+        username: "@dollarsign",
+        body: "I'm at a loss for words. This is amazing. I love it, No cap!",
     },
     {
-        name: "James",
-        username: "@james",
+        name: "Abhishek",
+        username: "@abhishek",
         body: "I'm at a loss for words. This is amazing. I love it.",
     },
 ];

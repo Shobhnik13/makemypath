@@ -97,7 +97,9 @@
 ::-webkit-scrollbar-track {
   background-color: hsl(var(--background));
 }
-
+html{
+  scroll-behavior: smooth;
+}
 .dotPattern {
   background-image: radial-gradient(rgb(35, 40, 68) 1px, transparent 1px);
   background-size: 25px 25px;

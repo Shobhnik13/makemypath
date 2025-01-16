@@ -1,13 +1,19 @@
 import { Container, Wrapper } from "@/components";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { LampContainer } from "@/components/ui/lamp";
+import Marquee from "@/components/ui/marquee";
+import SectionBadge from "@/components/ui/section-badge";
+import { features, perks, reviews } from "@/constants";
+import { cn } from "@/lib/utils";
+import { ArrowRight, ChevronRight, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const HomePage = () => {
-    
+        const firstline = reviews.slice(0,reviews.length/2)
+        const secondline = reviews.slice(reviews.length/2)
     return (
         <section className="w-full relative flex items-center justify-center flex-col px-4 md:px-0 py-8">
 
@@ -15,11 +21,12 @@ const HomePage = () => {
                 {/* section 1.o  */}
                 {/* hero section  */}
                 <Wrapper>
+                {/* <div className="absolute inset-0 dark:bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] -z-10 h-[150vh]" /> */}
                     {/* for rendering animated comp  */}
                     {/* for animating inside in container then further get rendered in wrapper->container->children  */}
                     <Container>
                                 {/* div 1  */}
-                    <div className="flex flex-col items-center justify-center py-20 h-full">
+                    <div id="about" className="flex flex-col items-center justify-center py-20 h-full">
                              {/* below code is for introducing makemypath badge with light revolving border */}
                              <button className="group relative grid overflow-hidden rounded-full px-4 py-1 shadow-[0_1000px_0_0_hsl(0_0%_20%)_inset] transition-colors duration-200">
                             <span>
@@ -87,15 +94,172 @@ const HomePage = () => {
         
 
                 {/* section 2.o  */}
-                {/* how it works  */}
-                <Wrapper>
+                {/* process  */}
+                <Wrapper className="flex flex-col items-center justify-center py-12 relative">
                     <Container>
-                        <div>
-                            
+
+                        <div className="max-w-md mx-auto text-start md:text-center">
+                                <SectionBadge title="The Process" />
+                                <h2 className="text-3xl lg:text-4xl font-semibold mt-6">
+                                     Three steps to build your dream career
+                                </h2>
+                                <p className="text-muted-foreground mt-6">
+                                     Turn your vision into reality in just 3 simple steps
+                                </p>
+                        </div>
+
+                    </Container>
+                    {/* container 2.o in section 2.o wrapper -> container -> div -< -< container  */}
+                    <Container>
+                        <div className="flex flex-col tems-center justify-center py-10 md:py-20 w-full">
+                                {/* for mapping  */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full divide-x-0 md:divide-x divide-y md:divide-y-0 divide-gray-900 first:border-l-2 lg:first:border-none first:border-gray-900">
+                                    {perks.map((item)=>(
+                                        <div key={item.title} className="flex flex-col items-start px-4 md:px-6 lg:px-8 lg:py-6 py-4">
+                                            <div className="flex items-center justify-center">
+                                                <item.icon className="w-8 h-8"/>
+                                            </div>
+                                            <h3 className="text-lg font-medium mt-4">
+                                                {item.title}
+                                            </h3>
+                                            <p className="text-muted-foreground mt-2 text-start lg:text-start">
+                                                {item.info}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
                         </div>
                     </Container>
                 </Wrapper>
 
+
+                {/* section 3.o  */}
+                {/* features  */}
+                <Wrapper>
+                    <Container>
+
+                            <div id="features" className="max-w-md mx-auto text-start md:text-center">
+                                <SectionBadge title="Features" />
+                                <h2 className="text-3xl lg:text-4xl font-semibold mt-6">
+                                    Discover our powerful features
+                                </h2>
+                                <p className="text-muted-foreground mt-6">
+                                    MakeMyPath offers a range of features to help you build a strong career 
+                                </p>
+                            </div>
+
+                    </Container>
+                       {/* container 2.o for mapping of features as 1.o was for badge and h2, p  */}
+                    <Container>
+                        <div className="flex flex-col items-center justify-center py-10 md:py-20 w-full">
+                            {/* for mapping  */}    
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-8 ">
+                                {features.map((item)=>(
+                                    <div key={item.title} className="flex  flex-col items-start lg:items-start px-0 md:px-4">
+                                        
+                                        <h3 className="text-lg font-medium mt-4">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-muted-foreground mt-2 text-start lg:text-start">
+                                            {item.info}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </Container>
+                </Wrapper>
+
+
+                {/* section 4.o  */}
+                {/* testimonials  */}
+                <Wrapper>
+                    <Container>
+                        
+                        <div id="reviews" className="max-w-md mx-auto  text-start md:text-center mt-5">
+                            <SectionBadge title="Testimonials" />
+                                <h2 className="text-3xl lg:text-4xl font-semibold mt-6">
+                                  What people are saying
+                                </h2>
+                                <p className="text-muted-foreground mt-6">
+                                 See how MakeMyPath empowers lives of students and working professionals
+                                </p>
+                        </div>
+                    
+                    </Container>
+                    {/* container 2.o in section 4.o  */}
+                    <Container>
+                        <div className="py-10 md:py-20 w-full">
+                            {/* for mapping  */}
+                            <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden py-10 gap-y-3">
+                                {/* 1st line ki mapping ka marque  */}
+                                <Marquee  pauseOnHover className="[--duration:20s] select-none">
+                                    {firstline.map((item)=>(
+                                        <figure key={item.name}  className={cn(
+                                            "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+                                            "border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]",
+                                        )}>
+                                            <div className="flex flex-row items-center gap-2">
+                                                <UserIcon className="w-6 h-6"/>
+                                                <div className="flex flex-col">
+                                                    <figcaption className="text-sm font font-medium">
+                                                        {item.name}
+                                                    </figcaption>
+                                                    <p className="text-xs font-medium text-muted-foreground">{item.username}</p>
+                                                </div>
+                                            </div>
+                                            <blockquote className="mt-2 text-sm">{item.body}</blockquote>
+                                        </figure>
+                                    ))}
+                                </Marquee>
+                                    {/* 2nd line of reviews  ke lie alag marque taki ek alag marque dikhe it means 2 dikhe ulte or sidhe jate -> <- */}
+                                <Marquee reverse pauseOnHover className="[--duration:20s] select-none">
+                                    {secondline.map((item)=>(
+                                        <figure key={item.name}  className={cn(
+                                            "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+                                            "border-zinc-50/[.1] bg-background over:bg-zinc-50/[.15]",
+                                        )}>
+                                            <div className="flex flex-row items-center gap-2">
+                                                <UserIcon className="w-6 h-6"/>
+                                                <div className="flex flex-col">
+                                                    <figcaption className="text-sm font font-medium">
+                                                        {item.name}
+                                                    </figcaption>
+                                                    <p className="text-xs font-medium text-muted-foreground">{item.username}</p>
+                                                </div>
+                                            </div>
+                                            <blockquote className="mt-2 text-sm">{item.body}</blockquote>
+                                        </figure>
+                                    ))}
+                                </Marquee>
+                            </div>
+                        </div>
+                    </Container>
+                </Wrapper>
+
+
+                {/* section 5.o  */}
+                {/* aise hi get started  */}
+                <Wrapper className="flex flex-col items-center justify-center py-12 relative ">
+                    <Container>
+                         <LampContainer>
+                            <div className="flex flex-col items-center justify-center relative w-full text-center">
+                                <h2 className="text-4xl lg:text-5xl xl:text-6xl lg:!leading-snug font-semibold mt-8">
+                                    From learning to implementation faster than ever
+                                </h2>
+                                <p className="text-muted-foreground mt-6 max-w-md mx-auto">
+                                    Build your dream career with our AI tailored resources, certifications, roadmaps, and job roles
+                                </p>
+                                <Button variant="white" className="mt-6" asChild>
+                                    <Link href={'/sign-in'}>
+                                        Get started for free 
+                                        <ArrowRight className="w-4 h-4 ml-2"/>
+                                    </Link>
+                                </Button>
+                            </div>
+                        </LampContainer>           
+                    </Container>
+                </Wrapper>
 
         </section>
     )
