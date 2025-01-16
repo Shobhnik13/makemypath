@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     // Parse the response to ensure it's valid JSON
     const jsonResponse = JSON.parse(response);
     
-    return NextResponse.json(jsonResponse);
+    return NextResponse.json(response);
   } catch (error: any) {
     console.error('Error:', error);
     return NextResponse.json(
