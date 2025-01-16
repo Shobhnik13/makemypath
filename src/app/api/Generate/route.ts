@@ -77,8 +77,8 @@ export async function POST(req: Request) {
 
     Ensure all URLs are valid and point to real resources. Include a mix of free and paid resources.`;
 
-    // const result = await model.generateContent(prompt);
-    // const response = result.response.text();
+    const result = await model.generateContent(prompt);
+    const response = result.response.text();
     
     // const cleanedResponse = response
     // .replace(/```json/g, '') // Remove markdown code fences
@@ -86,9 +86,9 @@ export async function POST(req: Request) {
     // .trim();         
 
     // Parse the response to ensure it's valid JSON
-    // const jsonResponse = JSON.parse(response);
+    const jsonResponse = JSON.parse(response);
     
-    return NextResponse.json('hello world');
+    return NextResponse.json(jsonResponse);
   } catch (error: any) {
     console.error('Error:', error);
     return NextResponse.json(
