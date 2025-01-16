@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 // mentioning all my public routes here 
 // so after auth success state the clerk will check taht is it private or public
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/','/api/Generate'])
+const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/',])
 
 
 // checking for home route
