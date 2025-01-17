@@ -1,21 +1,33 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { UserButton } from '@clerk/nextjs'
+import { UserButton, useUser } from '@clerk/nextjs'
 import axios from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 
-const page = () => {
+const DashboardPage = () => {
+    const user = useUser()
+    const [loading, setLoading] = useState(false)
+    // console.log(user.user?.emailAddresses[0].emailAddress)
     const fetchData = async()=>{
-        const data = await axios.post('https://makemypath-backend.onrender.com/api/career-guidance',{topic:'deep learning'})
-        // const jsonData = JSON.parse(data.data)
+        try{
+            setLoading(true)
+        const data = await axios.post('http://localhost:5000/api/career-guidance',{
+            topic:'FRONTEND DEV',
+            userEmail:user.user?.emailAddresses[0].emailAddress
+        })
+        setLoading(false)
         console.log(data.data)
+        }catch(err:any){
+            console.log(err);
+            setLoading(false)
+        }
     }
   return (
     <div className='flex '>
         <UserButton/> 
-        <Button onClick={fetchData}>Hiii</Button>
+        <Button onClick={fetchData}>{loading?('loading...'):'click me'}</Button>
     </div>
   )
 }
 
-export default page
+export default DashboardPage
