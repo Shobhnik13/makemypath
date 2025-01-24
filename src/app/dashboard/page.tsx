@@ -19,7 +19,7 @@ const DashboardPage = () => {
   const fetchData = async () => {
     try {
       setLoading(true)
-      const res = await axios.post<string>('http://localhost:5000/api/career-guidance', {
+      const res = await axios.post<string>('https://makemypath-backend.onrender.com/api/career-guidance', {
         topic: topic,
         userEmail: user.user?.emailAddresses[0].emailAddress,
       })
