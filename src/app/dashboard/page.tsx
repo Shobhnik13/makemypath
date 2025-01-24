@@ -1,5 +1,6 @@
 'use client'
 
+import DashboardNavbar from '@/components/navigation/DashboardNav'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -35,6 +36,7 @@ const DashboardPage = () => {
 
   return (
     <div className="flex flex-col items-center bg-black min-h-screen p-8">
+        <DashboardNavbar/>
       <div className="p-10 text-2xl md:text-3xl lg:text-4xl font-bold leading-snug lg:px-14 text-center text-white mb-8">
         <h1>{`Hi, ${user ? `${user.user?.firstName} 👋` : `User 👋`} `}</h1>
       </div>

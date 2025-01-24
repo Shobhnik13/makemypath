@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import { UserButton, useUser } from "@clerk/nextjs"
 
 const DashboardNavbar = () => {
-    const user = useUser()
+   
     // console.log(user?.user?.firstName);
     
   return (
