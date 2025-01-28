@@ -18,9 +18,11 @@ export default function RootLayout({
                     font.className
                 )}
                 >
+              
                 <ClerkProvider appearance={{baseTheme:dark}}>
                 {children}
                 </ClerkProvider>
+                
             </body>
         </html>
     );

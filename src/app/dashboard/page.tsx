@@ -1,8 +1,10 @@
 'use client'
 
+import { SkillCard } from '@/components'
+import SkeletonComp from '@/components/dashboard/SkeletonComp'
 import DashboardNavbar from '@/components/navigation/DashboardNav'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { UserButton, useUser } from '@clerk/nextjs'
 import { Item } from '@radix-ui/react-select'
@@ -10,28 +12,26 @@ import axios from 'axios'
 import { LoaderCircle } from 'lucide-react'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+
 
 const DashboardPage = () => {
   const user = useUser()
   const [loading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState<any>() 
   const [topic, setTopic] = useState<string>('')
-
+  
+  
   const fetchData = async () => {
     try {
       setLoading(true)
       // setData({})
-      const res = await axios.post<string>('https://makemypath-backend.onrender.com/api/career-guidance', {
+      const res = await axios.post<string>('http://localhost:5000/api/career-guidance', {
         topic: topic,
         userEmail: user.user?.emailAddresses[0].emailAddress,
       })
       setLoading(false)
       setData(res.data) 
-      // const skill =  data.skillLevels.beginner
-      console.log(data);
-      // console.log(skill);
+      // console.log(data);
       setTopic('')
     } catch (err) {
       console.log(err)
@@ -67,177 +67,125 @@ const DashboardPage = () => {
       </div>
 
       {/* Render markdown content with proper centering and increased font size */}
-      {data ? (
-        <div>
-          <div className='text-xl capitalize mb-4'>
-            {data.domain}
-          </div>
-          <div className='text-gray-400 mb-4'>
-            {data.overview}
-          </div>
-          {/* mapping skills  */}
-          {/* beginner  */}
-          <div className=''>
-            <div className='font-bold text-lg text-[#2564ebff] py-2 border-b border-foreground/20 '>
-            Beginner phase 🌱
-            </div>
-            <div className='pt-4 flex flex-col justify-center gap-y-4 text-foreground/70'>
-              {data.skillLevels.beginner.map((item:any)=>(
-                <div key={item.skill} className=''>
-                    <div>
-                      {item.skill}
-                    </div>
-                    <div>
-                      {item.description}
-                    </div>
-                    <div>
-                      {item.timeToLearn}
-                    </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      {loading?(<SkeletonComp/>):(data ? (
+        // overview and desc card 
+        <div className='w-full max-w-[90rem] px-4 md:px-8 space-y-8'>
+         <Card>
+            <CardHeader>
+              <CardTitle className='capitalize'>{data.domain}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-400">{data.overview}</p>
+            </CardContent>
+          </Card>
 
-            {/* intermediate  */}
-            <div className=''>
-            <div className='font-bold text-lg text-[#2564ebff] py-2 border-b border-foreground/20 '>
-            Intermediate phase  📝
-            </div>
-            <div className='pt-4 flex flex-col justify-center gap-y-4 text-foreground/70'>
-              {data.skillLevels.intermediate.map((item:any)=>(
-                <div key={item.skill} className=''>
-                    <div>
-                      {item.skill}
-                    </div>
-                    <div>
-                      {item.description}
-                    </div>
-                    <div>
-                      {item.timeToLearn}
-                    </div>
-                </div>
-              ))}
-            </div>
+          {/* mapping skills in different card for different levels by generalising changes like title, emoji, data of skills that are mapped  */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <SkillCard
+              title="Beginner Phase"
+              data={data.skillLevels.beginner}
+              emoji="🌱"
+            />
+            <SkillCard
+              title="Intermediate Phase"
+              data={data.skillLevels.intermediate}
+              emoji="📝"
+            />
+            <SkillCard
+              title="Expert Phase"
+              data={data.skillLevels.expert}
+              emoji="🌲"
+            />
           </div>
-
-          {/* expert  */}
-          <div className=''>
-            <div className='font-bold text-lg text-[#2564ebff] py-2 border-b border-foreground/20 '>
-            Expert phase 🌲
-            </div>
-            <div className='pt-4 flex flex-col justify-center gap-y-4 text-foreground/70'>
-              {data.skillLevels.expert.map((item:any)=>(
-                <div key={item.skill} className=''>
-                    <div>
-                      {item.skill}
-                    </div>
-                    <div>
-                      {item.description}
-                    </div>
-                    <div>
-                      {item.timeToLearn}
-                    </div>
-                </div>
-              ))}
-            </div>
-          </div>
-             {/* resources  */}
-             <div className='mt-14 '>
-              <div className='text-xl font-bold text-[#2564ebff] py-2 border-b border-foreground/20'>
-              Resources from where you can learn and earn 🤑 💵
-              </div>
-             <div className='pt-4 flex flex-col justify-center gap-y-4 text-foreground/70'>
-              {data.resources.map((item:any)=>(
-                <div key={item.name}>
-                    <div className='capitalize'>
-                      {item.name}
-                    </div>
-                    <div className='capitalize'>
-                      What they provide : {item.description}
-                    </div>
-                    <div className='capitalize'>
-                      Type : {item.type}
-                    </div>
-                    <div className='capitalize'>
-                      Payment type : {item.cost}
-                    </div>
-                    <div className='capitalize'>
-                      Difficulty level : {item.difficulty}
-                    </div>
-                    <div className='capitalize'>
-                      Availability : {item.duration}
-                    </div>
-                    <Link href={`${item.url}`} target='_blank' className='text-green-500 font-bold'>
-                      Watch here 
+             {/* resources card */}
+             <Card>
+            <CardHeader>
+              <CardTitle className="text-xl text-blue-600">
+                Learning Resources 🤑 💵
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {data.resources.map((item:any) => (
+                <div key={item.name} className="space-y-2">
+                  <h3 className="font-medium capitalize">{item.name}</h3>
+                  <div className="text-sm text-gray-400 space-y-1">
+                    <p>What they provide: {item.description}</p>
+                    <p>Type: {item.type}</p>
+                    <p>Payment type: {item.cost}</p>
+                    <p>Difficulty level: {item.difficulty}</p>
+                    <p>Availability: {item.duration}</p>
+                    <Link target='_blank' href={`${item.url}`} className="text-green-500 font-bold">
+                      Watch here
                     </Link>
+                  </div>
                 </div>
               ))}
-             </div>
-        </div>
-        {/* job paths  */}
-        <div className='mt-14'>
-          <div className='text-xl font-bold text-[#2564ebff] py-2 border-b border-foreground/20'>
-            Wohoo!! You are a master in the game now, you can try to apply for these particular roles  🚀 ✅
-          </div>
-          <div className='capitalize pt-4 flex flex-col justify-center gap-y-4 text-foreground/70'>
-              {data.careerPaths.map((item:any)=>(
-                <div key={item.role}>
-                    <div>
-                      {item.role}
-                    </div>
-                    <div className='flex'>
-                      Skills required for the role : 
-                      {item.requiredSkills.map((item2:any)=>(
-                        <div className='px-1' key={item2}>
-                          {item2},
-                        </div>
+            </CardContent>
+          </Card>
+
+        {/* job paths card */}
+        <Card>
+            <CardHeader>
+              <CardTitle className="text-xl text-blue-600">
+                Career Opportunities 🚀 ✅
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {data.careerPaths.map((item:any) => (
+                <div key={item.role} className="space-y-2">
+                  <h3 className="font-medium">{item.role}</h3>
+                  <div className="text-sm text-gray-400 space-y-1">
+                    <div className="flex flex-wrap gap-1">
+                      <span>Skills required:</span>
+                      {item.requiredSkills.map((skill:any) => (
+                        <span key={skill}>{skill},</span>
                       ))}
                     </div>
-                    <div>
-                      Responsibilities : {item.description}
-                    </div>
-                    <div>
-                      Experience required : {item.requiredExperience} years
-                    </div>
-                    <div>
-                      growth trajectory : {item.growthTrajectory}
-                    </div>
+                    <p>Responsibilities: {item.description}</p>
+                    <p>Experience required: {item.requiredExperience} years</p>
+                    <p>Growth trajectory: {item.growthTrajectory}</p>
+                  </div>
                 </div>
               ))}
-          </div>
-        </div>
-              {/* tips and presence  */}
+            </CardContent>
+          </Card>
+              {/* tips and presence card */}
 
-        <div className='mt-14'>
-          <div className='text-xl font-bold text-[#2564ebff] py-2 border-b border-foreground/20'>
-            Tips to stand out among crowd  💫
-          </div>
-          <div className='capitalize pt-4 flex flex-col justify-center gap-y-4 text-foreground/70'>
-              Build your online presence among these platforms by posting your daily progress and sharing informative content
-            {data.professionalDevelopment.onlinePresence.platforms.map((item:any)=>(
-              <div key={item.name}>
+              <Card>
+            <CardHeader>
+              <CardTitle className="text-xl text-blue-600">
+                Professional Development Tips 💫
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
                 <div>
-                  {item.name}
-                </div>
-                  <div>
-                    Purpose : {item.purpose}
+                  <h3 className="font-medium mb-4">Online Presence Platforms</h3>
+                  <div className="space-y-4">
+                    {data.professionalDevelopment.onlinePresence.platforms.map((item:any) => (
+                      <div key={item.name} className="text-sm text-gray-400">
+                        <p className="font-medium">{item.name}</p>
+                        <p>Purpose: {item.purpose}</p>
+                      </div>
+                    ))}
                   </div>
+                </div>
+                
+                <div>
+                  <h3 className="font-medium mb-4">Project Suggestions</h3>
+                  <div className="space-y-2">
+                    {data.professionalDevelopment.onlinePresence.portfolio.projectSuggestions.map((item:any) => (
+                      <p key={item} className="text-sm text-gray-400">{item}</p>
+                    ))}
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-          <div className='capitalize pt-8 flex flex-col justify-center gap-y-1 text-foreground/70'>
-          Some useful project ideas 
-            {data.professionalDevelopment.onlinePresence.portfolio.projectSuggestions.map((item:any)=>(
-              <div className='' key={item}>
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>            
+            </CardContent>
+          </Card>
         </div>
       ) : (
-        <div className="text-white">No data available</div>
-      )}
+        <div className="text-white"></div>
+      ))}
     </div>
   )
 }
