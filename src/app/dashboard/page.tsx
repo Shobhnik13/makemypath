@@ -51,7 +51,7 @@ const DashboardPage = () => {
         <Input
           type="text"
           required
-          placeholder="Enter the topic here"
+          placeholder="Enter the topic here, ex data science, frontend dev..."
           className="w-full mb-4 p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           name="topic"
           value={topic}
