@@ -45,7 +45,7 @@ const DashboardPage = () => {
     <div className="flex flex-col items-center bg-black min-h-screen p-8">
         <DashboardNavbar/>
       <div className="p-10 text-2xl md:text-3xl lg:text-4xl font-bold leading-snug lg:px-14 text-center text-white mb-8">
-        <h1>{`Hi, ${user ? `${user.user?.firstName} 👋` : `User 👋`} `}</h1>
+        <h1>{`Hi, ${user.user?.firstName !== undefined ? `${user.user?.firstName} 👋` : `User 👋`} `}</h1>
       </div>
       <div className="flex w-full max-w-md items-center space-x-2 px-8 flex-col mb-6">
         <Input
