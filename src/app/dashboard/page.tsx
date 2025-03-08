@@ -11,7 +11,7 @@ import { Item } from '@radix-ui/react-select'
 import axios from 'axios'
 import { LoaderCircle } from 'lucide-react'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 const DashboardPage = () => {
@@ -19,13 +19,12 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState<any>() 
   const [topic, setTopic] = useState<string>('')
-  
-  
+
   const fetchData = async () => {
     try {
       setLoading(true)
       // setData({})
-      const res = await axios.post<string>('https://makemypath-backend.onrender.com/api/career-guidance', {
+      const res = await axios.post<string>('http://localhost:5000/api/career-guidance', {
         topic: topic,
         userEmail: user.user?.emailAddresses[0].emailAddress,
       })
@@ -39,6 +38,47 @@ const DashboardPage = () => {
       setTopic('')
     }
   }
+  // local storing on state changes
+  useEffect(()=>{
+ const localTopic = localStorage.setItem('topic',topic)
+  },[topic])
+
+  useEffect(()=>{
+    const localLoading = localStorage.setItem('loading', loading.toString())
+  },[loading])
+  
+  useEffect(()=>{
+    if(data){
+      localStorage.setItem("data",JSON.stringify(data))
+    }
+  },[data])
+
+  // getting local storage  on mounting
+
+  useEffect(()=>{
+    if (typeof window !== 'undefined') {
+      const savedTopic = localStorage.getItem('topic')
+    const savedLoading = localStorage.getItem('loading')
+    const savedData = localStorage.getItem('data')
+
+    if(savedTopic){
+      setTopic(savedTopic)
+    }
+
+    if(savedLoading !== null) {
+      setLoading(savedLoading === 'true')
+    }
+
+    if(savedData){
+      try{
+setData(JSON.parse(savedData))
+      }catch(err){
+        console.log('caught in ls');
+        
+      }
+    }
+    }
+  },[])
   
  
   return (
