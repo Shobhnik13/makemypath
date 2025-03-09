@@ -42,7 +42,8 @@ const DashboardNavbar = () => {
     <header className="px-4 h-14 sticky top-0 inset-x-0 w-full bg-background/40 backdrop-blur-lg border-b border-border z-50">
       <div className="flex items-center justify-between h-full mx-auto md:max-w-screen-xl lg:max-w-screen-2xl">
         {/* 1st div  */}
-        <div className="flex items-center justify-center gap-x-1">
+        <div className="flex items-center justify-center gap-x-3">
+          <Link href={'/'}><ArrowLeft  className="w-4 h-4"/></Link>
           <span className="text-lg font-medium">Dashboard</span>
         </div>
         {/* 2md div  */}
