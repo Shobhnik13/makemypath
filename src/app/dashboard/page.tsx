@@ -6,7 +6,7 @@ import DashboardNavbar from '@/components/navigation/DashboardNav'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { UserButton, useUser } from '@clerk/nextjs'
+import { useClerk, UserButton, useUser } from '@clerk/nextjs'
 import { Item } from '@radix-ui/react-select'
 import axios from 'axios'
 import { LoaderCircle } from 'lucide-react'
@@ -19,7 +19,8 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState<any>() 
   const [topic, setTopic] = useState<string>('')
-
+  const {signOut} = useClerk()
+  
   const fetchData = async () => {
     try {
       setLoading(true)
