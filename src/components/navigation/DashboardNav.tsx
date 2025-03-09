@@ -43,7 +43,7 @@ const DashboardNavbar = () => {
       <div className="flex items-center justify-between h-full mx-auto md:max-w-screen-xl lg:max-w-screen-2xl">
         {/* 1st div  */}
         <div className="flex items-center justify-center gap-x-3">
-          <Link href={'/'}><ArrowLeft  className="w-4 h-4"/></Link>
+          <Link href={'/'}><ArrowLeft className="w-4 h-4" /></Link>
           <span className="text-lg font-medium">Dashboard</span>
         </div>
         {/* 2md div  */}
@@ -61,7 +61,18 @@ const DashboardNavbar = () => {
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction><button onClick={handleSignOut}>{loadingLogout === true ?<Loader className="w-4 h-4 animate-spin"/> : 'Continue'}</button></AlertDialogAction>
+                <div className={buttonVariants()}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSignOut();
+                    }}
+                    className="w-full h-full flex items-center justify-center"
+                    disabled={loadingLogout}
+                  >
+                    {loadingLogout ? <Loader className="w-4 h-4 animate-spin" /> : 'Continue'}
+                  </button>
+                </div>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
