@@ -25,7 +25,7 @@ const DashboardPage = () => {
     try {
       setLoading(true)
       // setData({})
-      const res = await axios.post<string>('https://makemypath-backend.onrender.com/career-guidance', {
+      const res = await axios.post<string>('https://makemypath-backend.onrender.com/api/career-guidance', {
         topic: topic,
         userEmail: user.user?.emailAddresses[0].emailAddress,
       })
